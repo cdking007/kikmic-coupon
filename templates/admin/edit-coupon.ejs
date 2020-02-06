@@ -1,0 +1,30 @@
+<%- include('.././layouts/header.ejs') %>
+
+        
+<div class="container">
+    <div class="row">
+        <div class="col-12 centered">
+            <div class="shadowd shadowd-2">
+                <h1>Edit Coupon</h1>
+                <form action="/admin/edit-coupon" method="POST">
+                    <!-- <label for="title" class="text-1">Title</label> -->
+                    <input type="hidden" name="urlTitle" value="<%= coupon.urlTitle %>">
+                    <input type="text" class="inp-1" name="title" id="title" placeholder="Title" value="<%= coupon.title %>">
+                    <input type="text" class="inp-1" name="imgUrl" id="imgUrl" placeholder="imgUrl" value="<%= coupon.imgUrl %>">
+                    <input type="text" class="inp-1" name="description" id="description" placeholder="description" value="<%= coupon.description %>">
+                    <textarea name="body" id="body" cols="30" rows="10" class="inp-1" placeholder="body"><%- coupon.body %></textarea>
+                    <input type="text" class="inp-1" name="enrollUrl" id="enrollUrl" placeholder="enrollUrl" value="<%= coupon.enrollUrl %>">
+                    <input type="submit" value="Update" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<%- include('.././layouts/footer.ejs') %>
+<script src="https://cdn.tiny.cloud/1/fna12qhk7sx1fzdby0ndix80x6kgnxv3pydhcm1u31rb3a0z/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+      selector: '#body'
+    });
+  </script>

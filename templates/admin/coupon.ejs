@@ -1,0 +1,40 @@
+<%- include('.././layouts/header.ejs') %>
+
+<!-- Page Header -->
+
+<div class="container c-con-1">
+  <a href="/admin/add-coupon" class="btn btn-success u-left">Add Coupon</a>
+  <table class="table table-dark table-hover">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if(coupons.length > 0){ %>
+      <% coupons.forEach((coupon)=>{ %>
+      <% let dates = coupon.createdAt.toString().split(" "); let b= []; for(let i=1;i<4;i++){ b.push(dates[i]); } let c = b.join(" "); %>
+      <tr>
+        <td><img src="<%= coupon.imgUrl %>" class="img-1" alt=""></td>
+        <td><%= coupon.title %></td>
+        <td> 
+              <a href="/admin/<%= coupon.urlTitle %>?edit=true" class="btn btn-primary">Edit</a> <hr>
+              <form action="/admin/delete-coupon" method="post">
+                <input type="hidden" name="_id" value="<%= coupon._id %>">
+                <input type="submit" value="delete" class="btn btn-danger"> <hr>
+              </form>
+              <a href="/coupon/<%= coupon.urlTitle %>" class="btn btn-info">View</a>
+      </tr>
+      <% }) %>
+      <% } else { %>
+      <tr><td>No Coupons found</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+
+</div>
+
+</body>
+<%- include('.././layouts/footer.ejs') %>

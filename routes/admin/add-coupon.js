@@ -1,6 +1,7 @@
 const express = require("express");
 const Admin = require("../../models/admin");
 const Coupon = require("../../models/coupon");
+const mongoose = require("mongoose");
 const router = express.Router();
 router.get("/add-user", async (req, res) => {
   try {
@@ -45,9 +46,58 @@ router.post("/add-coupon", async (req, res) => {
       owner: "5e3afaa201933a0814412249"
     });
     await coupon.save();
-    res.redirect("/");
+    res.redirect("/admin/coupons");
   } catch (e) {
     console.log(e);
+  }
+});
+
+router.get("/coupons", async (req, res) => {
+  const coupons = await Coupon.find({});
+  res.render("admin/coupon", {
+    postTitle: "Free Coupon codes",
+    coupons: coupons,
+    author: "chirag pipaliya",
+    description: "One stop for all Free coupon course",
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png"
+  });
+});
+
+router.get("/:title", async (req, res) => {
+  if (req.query.edit) {
+    const coupon = await Coupon.findOne({ urlTitle: req.params.title });
+    if (!coupon) {
+      return res.status(404).send("<h1>404 page not found dud</h1>");
+    }
+    res.render("admin/edit-coupon", {
+      postTitle: "Edit Coupon",
+      coupon,
+      author: "chirag pipaliya",
+      description: "Edit coupon" + coupon.title,
+      thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png"
+    });
+  }
+});
+
+router.post("/edit-coupon", async (req, res) => {
+  try {
+    const coupon = await Coupon.findOneAndUpdate(
+      { urlTitle: req.body.urlTitle },
+      { ...req.body }
+    );
+    await coupon.save();
+    res.redirect("/admin/coupons");
+  } catch (error) {
+    console.log("error");
+  }
+});
+
+router.post("/delete-coupon", async (req, res) => {
+  try {
+    await Coupon.findByIdAndRemove(new mongoose.Types.ObjectId(req.body._id));
+    res.redirect("/admin/coupons");
+  } catch (error) {
+    console.log(error);
   }
 });
 
