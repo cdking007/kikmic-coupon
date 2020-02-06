@@ -30,4 +30,5 @@ router.get("/coupon/:title", async (req, res) => {
     console.log("something is want wrong!");
   }
 });
+
 module.exports = router;

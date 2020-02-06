@@ -3,21 +3,9 @@ const Admin = require("../../models/admin");
 const Coupon = require("../../models/coupon");
 const mongoose = require("mongoose");
 const router = express.Router();
-router.get("/add-user", async (req, res) => {
-  try {
-    const admin = await new Admin({
-      email: "chirag@kikmic.email",
-      username: "chirag",
-      password: "chirag@007#"
-    });
-    await admin.save();
-    res.redirect("/");
-  } catch (e) {
-    console.log(e);
-  }
-});
+const { ensureAuthenticated } = require("../../security/auth");
 
-router.get("/add-coupon", (req, res) => {
+router.get("/add-coupon", ensureAuthenticated, (req, res) => {
   res.render("admin/add-coupon", {
     postTitle: "add Coupon",
     description: "Coupon add",
@@ -26,7 +14,7 @@ router.get("/add-coupon", (req, res) => {
   });
 });
 
-router.post("/add-coupon", async (req, res) => {
+router.post("/add-coupon", ensureAuthenticated, async (req, res) => {
   const title = req.body.title;
   const urlTitle = title.replace(/ /g, "-");
   const imgUrl = req.body.imgUrl;
@@ -52,7 +40,7 @@ router.post("/add-coupon", async (req, res) => {
   }
 });
 
-router.get("/coupons", async (req, res) => {
+router.get("/coupons", ensureAuthenticated, async (req, res) => {
   const coupons = await Coupon.find({});
   res.render("admin/coupon", {
     postTitle: "Free Coupon codes",
@@ -63,7 +51,7 @@ router.get("/coupons", async (req, res) => {
   });
 });
 
-router.get("/:title", async (req, res) => {
+router.get("/:title", ensureAuthenticated, async (req, res) => {
   if (req.query.edit) {
     const coupon = await Coupon.findOne({ urlTitle: req.params.title });
     if (!coupon) {
@@ -79,7 +67,7 @@ router.get("/:title", async (req, res) => {
   }
 });
 
-router.post("/edit-coupon", async (req, res) => {
+router.post("/edit-coupon", ensureAuthenticated, async (req, res) => {
   try {
     const coupon = await Coupon.findOneAndUpdate(
       { urlTitle: req.body.urlTitle },
@@ -92,7 +80,7 @@ router.post("/edit-coupon", async (req, res) => {
   }
 });
 
-router.post("/delete-coupon", async (req, res) => {
+router.post("/delete-coupon", ensureAuthenticated, async (req, res) => {
   try {
     await Coupon.findByIdAndRemove(new mongoose.Types.ObjectId(req.body._id));
     res.redirect("/admin/coupons");
