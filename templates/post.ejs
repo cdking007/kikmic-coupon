@@ -1,0 +1,45 @@
+<%- include('layouts/header.ejs') %>
+<body>
+  <!-- Page Header -->
+  <header
+    class="masthead"
+    style="background-image: url('<%= coupon.imgUrl %>')"
+  >
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1><%= coupon.title %></h1>
+            <h2 class="subheading">
+              <%= coupon.description %>
+            </h2>
+            <span class="meta"
+              >Posted by
+              <a href="#">Chirag</a>
+              on <%= coupon.createdAt %></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto" id="spanner">
+          <%- coupon.body %>
+        </div>
+      </div>
+    </div>
+  </article>
+  <div class="enr-per-1">
+    <a href="<%= coupon.enrollUrl %>" class="enr-1" target="_BLANK"
+      >Enroll Now</a
+    >
+  </div>
+  <hr />
+</body>
+<%- include('layouts/footer.ejs') %>

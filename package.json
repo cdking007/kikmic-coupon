@@ -1,0 +1,24 @@
+{
+  "name": "blog-udemy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "env-cmd -f ./config/dev.env nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "env-cmd": "^10.0.1",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.11"
+  }
+}
