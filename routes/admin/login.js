@@ -4,6 +4,7 @@ const Coupon = require("../../models/coupon");
 const passport = require("passport");
 const Admin = require("../../models/admin");
 const initializePassport = require("../../security/passport-config");
+const pwChecker = require("../../models/password");
 const {
   ensureNotAuthenticated,
   ensureAuthenticated
@@ -19,12 +20,7 @@ router.get("/login", ensureNotAuthenticated, (req, res, next) => {
   });
 });
 router.post("/login", ensureNotAuthenticated, (req, res, next) => {
-  // let x;
-  // if (req.user.role === "admin") {
-  //   x = "/admin";
-  // } else {
-  //   x = "/";
-  // }
+  req.body.username = req.body.username.toLowerCase().trim();
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
@@ -62,6 +58,15 @@ router.post("/signup", ensureNotAuthenticated, async (req, res) => {
   }
   if (checkEmail) {
     req.flash("error", "User already exist with this Email");
+    return res.redirect("/signup");
+  }
+  if (!pwChecker.validate(password)) {
+    const errors = pwChecker.validate(password, { list: true });
+
+    let errorStr = errors.join(" ,");
+    errorStr = errorStr.replace("min", "min length 8");
+    errorStr = errorStr.replace("max", "max length 50");
+    req.flash("error", "Password must contain", errorStr);
     return res.redirect("/signup");
   }
   const admin = new Admin({ email, username, password });
