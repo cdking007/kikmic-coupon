@@ -5,13 +5,24 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const { ensureAuthenticated, isAdmin } = require("../../security/auth");
 
+router.get("/", ensureAuthenticated, isAdmin, async (req, res) => {
+  const totMember = await Admin.find({}).count();
+  const totCoupon = await Coupon.find({}).count();
+  res.render("admin/dashboard", {
+    totMember,
+    totCoupon,
+    path: "/dashboard"
+  });
+});
+
 router.get("/add-coupon", ensureAuthenticated, isAdmin, (req, res) => {
   res.render("admin/add-coupon", {
     postTitle: "add Coupon",
     description: "Coupon add",
     author: "chirag pipaliya",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
-    isLogin: true
+    isLogin: true,
+    path: "/coupons"
   });
 });
 
@@ -49,7 +60,8 @@ router.get("/coupons", ensureAuthenticated, isAdmin, async (req, res) => {
     author: "chirag pipaliya",
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
-    isLogin: true
+    isLogin: true,
+    path: "/coupons"
   });
 });
 
@@ -61,7 +73,8 @@ router.get("/members", ensureAuthenticated, isAdmin, async (req, res) => {
     author: "chirag pipaliya",
     description: "Site Members",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
-    isLogin: true
+    isLogin: true,
+    path: "/members"
   });
 });
 
@@ -77,7 +90,8 @@ router.get("/:title", ensureAuthenticated, isAdmin, async (req, res) => {
       author: "chirag pipaliya",
       description: "Edit coupon" + coupon.title,
       thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
-      isLogin: true
+      isLogin: true,
+      path: "/coupons"
     });
   }
 });

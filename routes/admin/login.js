@@ -26,7 +26,7 @@ router.post("/login", ensureNotAuthenticated, (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/signup", ensureNotAuthenticated, (req, res) => {
+router.get("/signup", ensureNotAuthenticated, async (req, res) => {
   res.render("signup", {
     postTitle: "signup",
     author: "chirag pipaliya",
@@ -40,6 +40,14 @@ router.post("/signup", ensureNotAuthenticated, async (req, res) => {
   const { email, username, password } = { ...req.body };
   const checkUsername = await Admin.findOne({ username });
   const checkEmail = await Admin.findOne({ email });
+
+  let splChars = "*|,\":<>[]{}`';()@&$#%";
+  for (let i = 0; i < req.body.username.length; i++) {
+    if (splChars.indexOf(req.body.username.charAt(i)) != -1) {
+      req.flash("error", "Username can not contain special characters!");
+      return res.redirect("/signup");
+    }
+  }
   if (checkUsername) {
     req.flash("error", "User already exist with this username");
     return res.redirect("/signup");

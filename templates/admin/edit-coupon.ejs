@@ -1,6 +1,6 @@
-<%- include('.././layouts/header.ejs') %>
-
-        
+<%- include("admin-header.ejs") %>
+<link rel="stylesheet" href="/css/style.css" />
+     <div class="content">
 <div class="container">
     <div class="row">
         <div class="col-12 centered">
@@ -12,7 +12,7 @@
                     <input type="text" class="inp-1" name="title" id="title" placeholder="Title" value="<%= coupon.title %>">
                     <input type="text" class="inp-1" name="imgUrl" id="imgUrl" placeholder="imgUrl" value="<%= coupon.imgUrl %>">
                     <input type="text" class="inp-1" name="description" id="description" placeholder="description" value="<%= coupon.description %>">
-                    <textarea name="body" id="body" cols="30" rows="10" class="inp-1" placeholder="body"><%- coupon.body %></textarea>
+                    <textarea name="body" id="body" cols="10" rows="30" class="inp-1" placeholder="body"><%- coupon.body %></textarea>
                     <input type="text" class="inp-1" name="enrollUrl" id="enrollUrl" placeholder="enrollUrl" value="<%= coupon.enrollUrl %>">
                     <input type="submit" value="Update" class="btn btn-primary">
                 </form>
@@ -20,8 +20,10 @@
         </div>
     </div>
 </div>
+</div>
 </body>
-<%- include('.././layouts/footer.ejs') %>
+<%- include("admin-footer.ejs") %>
+
 <script src="https://cdn.tiny.cloud/1/fna12qhk7sx1fzdby0ndix80x6kgnxv3pydhcm1u31rb3a0z/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
