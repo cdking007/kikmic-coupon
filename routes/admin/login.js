@@ -60,7 +60,10 @@ router.post("/signup", ensureNotAuthenticated, async (req, res) => {
   await admin
     .save()
     .then(() => {
-      res.redirect("/login");
+      if (req.user.role === "admin") {
+        return res.redirect("/admin");
+      }
+      res.redirect("/");
     })
     .catch(e => console.log(e));
 });
