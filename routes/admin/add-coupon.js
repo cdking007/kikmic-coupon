@@ -10,7 +10,8 @@ router.get("/add-coupon", ensureAuthenticated, isAdmin, (req, res) => {
     postTitle: "add Coupon",
     description: "Coupon add",
     author: "chirag pipaliya",
-    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png"
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+    isLogin: true
   });
 });
 
@@ -47,7 +48,8 @@ router.get("/coupons", ensureAuthenticated, isAdmin, async (req, res) => {
     coupons: coupons,
     author: "chirag pipaliya",
     description: "One stop for all Free coupon course",
-    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png"
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+    isLogin: true
   });
 });
 
@@ -58,7 +60,8 @@ router.get("/members", ensureAuthenticated, isAdmin, async (req, res) => {
     members: members,
     author: "chirag pipaliya",
     description: "Site Members",
-    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png"
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+    isLogin: true
   });
 });
 
@@ -73,7 +76,8 @@ router.get("/:title", ensureAuthenticated, isAdmin, async (req, res) => {
       coupon,
       author: "chirag pipaliya",
       description: "Edit coupon" + coupon.title,
-      thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png"
+      thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+      isLogin: true
     });
   }
 });

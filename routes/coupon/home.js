@@ -9,7 +9,8 @@ router.get("/", async (req, res) => {
     coupons: coupons,
     author: "chirag pipaliya",
     description: "One stop for all Free coupon course",
-    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png"
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+    isLogin: req.user ? true : false
   });
 });
 router.get("/coupon/:title", async (req, res) => {
@@ -24,7 +25,8 @@ router.get("/coupon/:title", async (req, res) => {
       coupon,
       description: coupon.description,
       author: "chirag pipaliya",
-      thumbUrl: coupon.imgUrl
+      thumbUrl: coupon.imgUrl,
+      isLogin: req.user ? true : false
     });
   } catch (error) {
     console.log("something is want wrong!");
