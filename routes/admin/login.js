@@ -43,7 +43,9 @@ router.get("/signup", ensureNotAuthenticated, async (req, res) => {
 });
 
 router.post("/signup", ensureNotAuthenticated, async (req, res) => {
-  const { email, username, password } = { ...req.body };
+  const email = req.body.email;
+  const username = req.body.username.toLowerCase().trim();
+  const password = req.body.password;
   const checkUsername = await Admin.findOne({ username });
   const checkEmail = await Admin.findOne({ email });
 
