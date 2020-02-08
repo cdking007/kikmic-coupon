@@ -60,6 +60,15 @@ router.post("/signup", ensureNotAuthenticated, async (req, res) => {
     req.flash("error", "User already exist with this Email");
     return res.redirect("/signup");
   }
+  if (username.length <= 3 || username.match(/^\d/)) {
+    if (username.length <= 3) {
+      req.flash("error", "Username length must be more then 3");
+      return res.redirect("/signup");
+    } else {
+      req.flash("error", "Username must not start with number");
+      return res.redirect("/signup");
+    }
+  }
   if (!pwChecker.validate(password)) {
     const errors = pwChecker.validate(password, { list: true });
 
@@ -69,6 +78,7 @@ router.post("/signup", ensureNotAuthenticated, async (req, res) => {
     req.flash("error", "Password must contain", errorStr);
     return res.redirect("/signup");
   }
+
   const admin = new Admin({ email, username, password });
   await admin
     .save()
