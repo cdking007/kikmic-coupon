@@ -33,6 +33,16 @@ router.get("/signup", ensureNotAuthenticated, (req, res) => {
 
 router.post("/signup", ensureNotAuthenticated, async (req, res) => {
   const { email, username, password } = { ...req.body };
+  const checkUsername = await Admin.findOne({ username });
+  const checkEmail = await Admin.findOne({ email });
+  if (checkUsername) {
+    req.flash("error", "User already exist with this username");
+    return res.redirect("/signup");
+  }
+  if (checkEmail) {
+    req.flash("error", "User already exist with this Email");
+    return res.redirect("/signup");
+  }
   const admin = new Admin({ email, username, password });
   await admin
     .save()
