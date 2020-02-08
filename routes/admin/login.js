@@ -19,6 +19,12 @@ router.get("/login", ensureNotAuthenticated, (req, res, next) => {
   });
 });
 router.post("/login", ensureNotAuthenticated, (req, res, next) => {
+  // let x;
+  // if (req.user.role === "admin") {
+  //   x = "/admin";
+  // } else {
+  //   x = "/";
+  // }
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
@@ -60,10 +66,7 @@ router.post("/signup", ensureNotAuthenticated, async (req, res) => {
   await admin
     .save()
     .then(() => {
-      if (req.user.role === "admin") {
-        return res.redirect("/admin");
-      }
-      res.redirect("/");
+      res.redirect("/login");
     })
     .catch(e => console.log(e));
 });
