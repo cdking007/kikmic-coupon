@@ -47,7 +47,7 @@ router.post("/signup", ensureNotAuthenticated, async (req, res) => {
   const checkUsername = await Admin.findOne({ username });
   const checkEmail = await Admin.findOne({ email });
 
-  let splChars = "*|,\":<>[]{}`';()@&$#%";
+  let splChars = "*|,\":<>[]{}`';()@&$#% ";
   for (let i = 0; i < req.body.username.length; i++) {
     if (splChars.indexOf(req.body.username.charAt(i)) != -1) {
       req.flash("error", "Username can not contain special characters!");
