@@ -16,7 +16,7 @@ router.get("/login", ensureNotAuthenticated, (req, res, next) => {
 });
 router.post("/login", ensureNotAuthenticated, (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/admin/coupons",
+    successRedirect: "/",
     failureRedirect: "/login",
     failureFlash: true
   })(req, res, next);

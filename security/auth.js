@@ -6,12 +6,18 @@ function ensureAuthenticated(req, res, next) {
 }
 function ensureNotAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) {
-    console.log("user is not loged in!");
     return next();
   }
   res.redirect("/admin/coupons");
 }
+function isAdmin(req, res, next) {
+  if (req.user.role === "admin") {
+    return next();
+  }
+  res.status(404).send("<h1>404 Page Not Found!</h1>");
+}
 module.exports = {
   ensureAuthenticated,
-  ensureNotAuthenticated
+  ensureNotAuthenticated,
+  isAdmin
 };

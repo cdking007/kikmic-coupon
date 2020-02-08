@@ -3,9 +3,9 @@ const Admin = require("../../models/admin");
 const Coupon = require("../../models/coupon");
 const mongoose = require("mongoose");
 const router = express.Router();
-const { ensureAuthenticated } = require("../../security/auth");
+const { ensureAuthenticated, isAdmin } = require("../../security/auth");
 
-router.get("/add-coupon", ensureAuthenticated, (req, res) => {
+router.get("/add-coupon", ensureAuthenticated, isAdmin, (req, res) => {
   res.render("admin/add-coupon", {
     postTitle: "add Coupon",
     description: "Coupon add",
@@ -14,7 +14,7 @@ router.get("/add-coupon", ensureAuthenticated, (req, res) => {
   });
 });
 
-router.post("/add-coupon", ensureAuthenticated, async (req, res) => {
+router.post("/add-coupon", ensureAuthenticated, isAdmin, async (req, res) => {
   const title = req.body.title;
   const urlTitle = title.replace(/ /g, "-");
   const imgUrl = req.body.imgUrl;
@@ -31,7 +31,7 @@ router.post("/add-coupon", ensureAuthenticated, async (req, res) => {
       description,
       body,
       enrollUrl,
-      owner: "5e3afaa201933a0814412249"
+      owner: req.user._id
     });
     await coupon.save();
     res.redirect("/admin/coupons");
@@ -40,7 +40,7 @@ router.post("/add-coupon", ensureAuthenticated, async (req, res) => {
   }
 });
 
-router.get("/coupons", ensureAuthenticated, async (req, res) => {
+router.get("/coupons", ensureAuthenticated, isAdmin, async (req, res) => {
   const coupons = await Coupon.find({});
   res.render("admin/coupon", {
     postTitle: "Free Coupon codes",
@@ -51,7 +51,18 @@ router.get("/coupons", ensureAuthenticated, async (req, res) => {
   });
 });
 
-router.get("/:title", ensureAuthenticated, async (req, res) => {
+router.get("/members", ensureAuthenticated, isAdmin, async (req, res) => {
+  const members = await Admin.find({});
+  res.render("admin/members", {
+    postTitle: "Members",
+    members: members,
+    author: "chirag pipaliya",
+    description: "Site Members",
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png"
+  });
+});
+
+router.get("/:title", ensureAuthenticated, isAdmin, async (req, res) => {
   if (req.query.edit) {
     const coupon = await Coupon.findOne({ urlTitle: req.params.title });
     if (!coupon) {
@@ -67,7 +78,7 @@ router.get("/:title", ensureAuthenticated, async (req, res) => {
   }
 });
 
-router.post("/edit-coupon", ensureAuthenticated, async (req, res) => {
+router.post("/edit-coupon", ensureAuthenticated, isAdmin, async (req, res) => {
   try {
     const coupon = await Coupon.findOneAndUpdate(
       { urlTitle: req.body.urlTitle },
@@ -80,13 +91,18 @@ router.post("/edit-coupon", ensureAuthenticated, async (req, res) => {
   }
 });
 
-router.post("/delete-coupon", ensureAuthenticated, async (req, res) => {
-  try {
-    await Coupon.findByIdAndRemove(new mongoose.Types.ObjectId(req.body._id));
-    res.redirect("/admin/coupons");
-  } catch (error) {
-    console.log(error);
+router.post(
+  "/delete-coupon",
+  ensureAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    try {
+      await Coupon.findByIdAndRemove(new mongoose.Types.ObjectId(req.body._id));
+      res.redirect("/admin/coupons");
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 
 module.exports = router;
