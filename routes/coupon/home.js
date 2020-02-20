@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Coupon = require("../../models/coupon");
-const limit = 1;
+const limit = 10;
 const requestIp = require("request-ip");
 
 router.get("/", async (req, res) => {
@@ -60,13 +60,20 @@ router.get("/page/:page", async (req, res, next) => {
 router.get("/coupon/:title", async (req, res) => {
   try {
     const coupon = await Coupon.findOne({ urlTitle: req.params.title });
-    console.log(req.connection.remoteAddress);
+    // console.log(req.connection.remoteAddress);
     // console.log(coupon);
     if (!coupon) {
       return res.redirect("/");
     }
+    let views = coupon.views;
+    let viewsInc = views + 1;
+    const cpn = await Coupon.findOneAndUpdate(
+      { urlTitle: req.params.title },
+      { views: viewsInc }
+    );
+    await cpn.save();
     res.render("post", {
-      ip: requestIp.getClientIp(req),
+      views,
       postTitle: coupon.title + " Free Coupon",
       coupon,
       description: coupon.description,

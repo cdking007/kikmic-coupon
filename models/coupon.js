@@ -28,6 +28,11 @@ const couponSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    views: {
+      type: Number,
+      required: true,
+      default: 0
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Admin"

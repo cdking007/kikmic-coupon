@@ -14,10 +14,12 @@
             <h2 class="subheading">
               <%= coupon.description %>
             </h2>
+
             <span class="meta"
               >Posted by
               <a href="#">Chirag</a>
-              on <%= coupon.createdAt %></span
+              on <%= coupon.createdAt %>
+              <p>Views: <%= views %></p></span
             >
           </div>
         </div>
@@ -41,6 +43,5 @@
     >
   </div>
   <hr />
-  <h1><%= ip %></h1>
 </body>
 <%- include('layouts/footer.ejs') %>
