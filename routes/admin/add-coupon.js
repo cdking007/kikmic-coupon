@@ -3,11 +3,13 @@ const Admin = require("../../models/admin");
 const Coupon = require("../../models/coupon");
 const mongoose = require("mongoose");
 const router = express.Router();
+const bcryptjs = require("bcryptjs");
 const { ensureAuthenticated, isAdmin } = require("../../security/auth");
 
 router.get("/", ensureAuthenticated, isAdmin, async (req, res) => {
   const totMember = await Admin.find({}).count();
   const totCoupon = await Coupon.find({}).count();
+
   res.render("admin/dashboard", {
     totMember,
     totCoupon,
@@ -74,8 +76,82 @@ router.get("/members", ensureAuthenticated, isAdmin, async (req, res) => {
     description: "Site Members",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: true,
-    path: "/members"
+    path: "/members",
+    id: req.user._id
   });
+});
+
+router.post(
+  "/member/delete",
+  ensureAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    const id = req.body.id;
+    console.log(id);
+    await Admin.findByIdAndDelete(id);
+
+    res.redirect("/admin/members");
+    req.flash("info", "user deleted");
+  }
+);
+
+router.post(
+  "/member/update",
+  ensureAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    const email = req.body.email;
+    const role = req.body.role;
+    // console.log(role);
+    req.flash("info", "User updated");
+    try {
+      const member = await Admin.findByIdAndUpdate(req.body.id, {
+        email: email,
+        role: role.toLowerCase()
+      });
+      await member.save();
+      res.redirect("/admin/members");
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
+router.post(
+  "/member/changepass",
+  ensureAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    const id = req.body.id;
+    const password = await bcryptjs.hash(req.body.password, 8);
+    try {
+      const member = await Admin.findByIdAndUpdate(id, {
+        password
+      });
+      await member.save();
+      res.redirect("/admin/members");
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
+
+router.get("/member/:id", ensureAuthenticated, isAdmin, async (req, res) => {
+  const id = req.params.id;
+  const member = await Admin.findById(id);
+  if (member) {
+    res.render("admin/edit-member", {
+      postTitle: "Members",
+      member,
+      author: "chirag pipaliya",
+      description: "Site Members",
+      thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+      isLogin: true,
+      path: "/members",
+      id: req.user._id
+    });
+  } else {
+    res.send("404 not found sir!");
+  }
 });
 
 router.get("/:title", ensureAuthenticated, isAdmin, async (req, res) => {

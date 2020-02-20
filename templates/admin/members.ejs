@@ -3,39 +3,65 @@
   .img-1 {
     height: 30%;
   }
+  .container {
+    margin: 20px;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.322);
+    width: 60vw;
+  }
 </style>
 <div class="content">
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th>username</th>
-        <th>role</th>
-        <th class="text-right">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if(members.length > 0){ %>
-        <% members.forEach((member)=>{ %>
-      <tr>
-        <td><%= member.username %></td>
-        <td><select id="role">
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>username</th>
+          <th>role</th>
+          <th>email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(members.length > 0){ %> <% members.forEach((member)=>{ %>
+        <tr>
+          <td><%= member.username %></td>
+          <td>
+            <p><%= member.role %></p>
+            <!-- <select id="role">
           <option value="<%= member.role %>"><%= member.role %></option>
           <% if (member.role === "member"){ %>
           <option value="admin">admin</option>
               <% } else { %>
           <option value="member">member</option>
-              <%} %></td>
+              <%} %></td> -->
+          </td>
+          <td>
+            <p><%= member.email %></p>
+          </td>
+          <td>
+            <a class="btn btn-success" href="/admin/member/<%= member.id %>"
+              >edit</a
+            >
+            <form action="/admin/member/delete" method="post">
+              <input
+                type="hidden"
+                value="<%= member._id %>"
+                name="id"
+                id="id"
+              />
+              <input type="submit" class="btn btn-danger" value="delete" />
+            </form>
+          </td>
+        </tr>
 
-      </tr>
-      <% }) %>
-      <% } else { %>
-      <tr><td>No Coupons found</td></tr>
-      <% } %>
-    </tbody>
-  </table>
+        <% }) %> <% } else { %>
+        <tr>
+          <td>No Member found</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
 </div>
 <!-- Page Header -->
 
 <%- include("admin-footer.ejs") %>
-

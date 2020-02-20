@@ -16,7 +16,8 @@ router.get("/login", ensureNotAuthenticated, (req, res, next) => {
     author: "chirag pipaliya",
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
-    isLogin: false
+    isLogin: false,
+    isAdmin2: false
   });
 });
 router.post("/login", ensureNotAuthenticated, (req, res, next) => {
@@ -34,7 +35,8 @@ router.get("/signup", ensureNotAuthenticated, async (req, res) => {
     author: "chirag pipaliya",
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
-    isLogin: false
+    isLogin: false,
+    isAdmin2: false
   });
 });
 
@@ -93,7 +95,16 @@ router.get("/logout", ensureAuthenticated, (req, res) => {
     author: "chirag pipaliya",
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
-    isLogin: true
+    isLogin: true,
+    isAdmin2: (function() {
+      if (req.user) {
+        if (req.user.role === "admin") {
+          return true;
+        }
+        return false;
+      }
+      return false;
+    })()
   });
 });
 router.post("/logout", ensureAuthenticated, (req, res) => {

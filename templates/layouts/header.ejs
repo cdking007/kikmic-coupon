@@ -61,6 +61,13 @@
             <a class="nav-link" href="/login">login</a>
             <%}%>
           </li>
+
+          <% console.log(isAdmin2); %> <% if(isAdmin2 === true){ %>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Admin panel</a>
+          </li>
+          <% }%>
+
           <li class="nav-item">
             <a class="nav-link" href="/about">About</a>
           </li>

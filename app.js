@@ -37,8 +37,8 @@ app.use(
 //passport js authos
 app.use(passport.initialize());
 app.use(passport.session());
-// setting up routes
 
+// setting up routes
 app.use(mains);
 app.use("/admin", admin);
 app.use(login);
