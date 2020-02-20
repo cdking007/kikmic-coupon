@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Coupon = require("../../models/coupon");
 const limit = 1;
+const requestIp = require("request-ip");
 
 router.get("/", async (req, res) => {
   const coupons = await Coupon.find({})
@@ -65,7 +66,7 @@ router.get("/coupon/:title", async (req, res) => {
       return res.redirect("/");
     }
     res.render("post", {
-      ip: req.connection.remoteAddress,
+      ip: requestIp.getClientIp(req),
       postTitle: coupon.title + " Free Coupon",
       coupon,
       description: coupon.description,
