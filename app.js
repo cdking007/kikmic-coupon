@@ -40,14 +40,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(function(request, response) {
-  if (!request.secure) {
-    response.redirect("https://" + request.headers.host + request.url);
-  }
-});
-
 // setting up routes
-app.use(mains);
+app.use(function(req, res) {
+  res.redirect("https://" + req.headers.host + req.url);
+}, mains);
 app.use("/admin", admin);
 app.use(login);
 
