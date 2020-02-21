@@ -20,9 +20,7 @@ const admin = require("./routes/admin/add-coupon");
 const login = require("./routes/admin/login");
 
 const app = express();
-app.get("*", function(req, res) {
-  res.redirect("https://" + req.headers.host + req.url);
-});
+
 //settings for the view engine
 app.set("view engine", "ejs");
 app.set("views", templatePath);
