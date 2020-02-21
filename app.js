@@ -41,9 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // setting up routes
-app.use(function(req, res) {
-  res.redirect("https://" + req.headers.host + req.url);
-}, mains);
+app.use(mains);
 app.use("/admin", admin);
 app.use(login);
 
