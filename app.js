@@ -20,7 +20,9 @@ const admin = require("./routes/admin/add-coupon");
 const login = require("./routes/admin/login");
 
 const app = express();
-
+app.get("*", function(req, res) {
+  res.redirect("https://" + req.headers.host + req.url);
+});
 //settings for the view engine
 app.set("view engine", "ejs");
 app.set("views", templatePath);
@@ -61,9 +63,6 @@ generator.start();
 //404 page
 app.use("/", (req, res) => {
   res.status(404).send("<h1>Page not found </h1>");
-});
-app.get("*", function(req, res) {
-  res.redirect("https://" + req.headers.host + req.url);
 });
 
 const port = process.env.PORT;
