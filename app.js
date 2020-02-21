@@ -46,17 +46,19 @@ app.use("/admin", admin);
 app.use(login);
 
 // loading static files
+
 app.use(express.static(path.join(__dirname, "public")));
-var generator = SitemapGenerator("http://localhost:3000", {
-  maxDepth: 0,
-  filepath: "./public/sitemap.xml",
-  maxEntriesPerFile: 50000,
-  stripQuerystring: true
-});
-generator.on("done", () => {
-  // sitemaps created
-});
-generator.start();
+
+// var generator = SitemapGenerator("https://localhost:3000", {
+//   maxDepth: 0,
+//   filepath: "./public/sitemap.xml",
+//   maxEntriesPerFile: 50000,
+//   stripQuerystring: true
+// });
+// generator.on("done", () => {
+//   // sitemaps created
+// });
+// generator.start();
 
 //404 page
 app.use("/", (req, res) => {
