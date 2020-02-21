@@ -27,6 +27,60 @@ router.get("/", async (req, res) => {
     })()
   });
 });
+router.get("/privacy", (req, res) => {
+  res.render("privacy", {
+    postTitle: "Privacy policy",
+    author: "chirag pipaliya",
+    description: "One stop for all Free coupon course",
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+    isLogin: req.user ? true : false,
+    isAdmin2: (function() {
+      if (req.user) {
+        if (req.user.role === "admin") {
+          return true;
+        }
+        return false;
+      }
+      return false;
+    })()
+  });
+});
+router.get("/terms", (req, res) => {
+  res.render("terms", {
+    postTitle: "Terms and condition",
+    author: "chirag pipaliya",
+    description: "One stop for all Free coupon course",
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+    isLogin: req.user ? true : false,
+    isAdmin2: (function() {
+      if (req.user) {
+        if (req.user.role === "admin") {
+          return true;
+        }
+        return false;
+      }
+      return false;
+    })()
+  });
+});
+router.get("/contact", (req, res) => {
+  res.render("contact", {
+    postTitle: "Contact us",
+    author: "chirag pipaliya",
+    description: "One stop for all Free coupon course",
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+    isLogin: req.user ? true : false,
+    isAdmin2: (function() {
+      if (req.user) {
+        if (req.user.role === "admin") {
+          return true;
+        }
+        return false;
+      }
+      return false;
+    })()
+  });
+});
 
 router.get("/page/:page", async (req, res, next) => {
   let skipVal = parseInt(req.params.page);

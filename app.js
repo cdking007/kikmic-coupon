@@ -6,6 +6,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 const templatePath = path.join(__dirname, "templates");
 const passport = require("passport");
+const SitemapGenerator = require("sitemap-generator");
 
 // db connection
 
@@ -45,6 +46,16 @@ app.use(login);
 
 // loading static files
 app.use(express.static(path.join(__dirname, "public")));
+var generator = SitemapGenerator("http://localhost:3000", {
+  maxDepth: 0,
+  filepath: "./public/sitemap.xml",
+  maxEntriesPerFile: 50000,
+  stripQuerystring: true
+});
+generator.on("done", () => {
+  // sitemaps created
+});
+generator.start();
 
 //404 page
 app.use("/", (req, res) => {

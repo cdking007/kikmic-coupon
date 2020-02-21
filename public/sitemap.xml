@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://localhost:3000/</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/login</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/contact</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/privacy</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/terms</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/signup</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/coupon/Full-Stack-Web-Developer-with-AI-&amp;-ML-Integration%7CHindi%7CUrdu</loc>
+  </url>
+  <url>
+    <loc>http://localhost:3000/coupon/The-Complete-Node.js-Developer-Course</loc>
+  </url>
+</urlset>
