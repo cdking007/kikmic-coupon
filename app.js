@@ -22,7 +22,7 @@ const login = require("./routes/admin/login");
 const app = express();
 app.use((req, res, next) => {
   if (req.header("x-forwarded-proto") !== "https")
-    res.redirect(`https://${req.header("host")}${req.url}`);
+    res.redirect(301, `https://${req.header("host")}${req.url}`);
   else next();
 });
 //settings for the view engine
