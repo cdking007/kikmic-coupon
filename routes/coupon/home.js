@@ -8,6 +8,9 @@ router.get("/", async (req, res) => {
   const coupons = await Coupon.find({})
     .sort({ createdAt: -1 })
     .limit(limit);
+  const popular = await Coupon.find({})
+    .sort({ views: -1 })
+    .limit(4);
 
   res.render("home", {
     postTitle: "Free Coupon codes",
@@ -16,6 +19,7 @@ router.get("/", async (req, res) => {
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: req.user ? true : false,
+    popular: popular,
     keywords:
       "couponshub,kikmic,free coupons,free udemy courses,free offer,coupons adda,free offers,free courses",
     isAdmin2: (function() {

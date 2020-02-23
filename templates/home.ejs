@@ -16,16 +16,42 @@
   </header>
 <div class="container c-con-1">
   <div class="featured">
-    <h1 class="text-center">Featured Coupons</h1>
-    <div class="row"></div>
-    <p class="text-center">No featured coupon found</p>
+    <h1 class="text-center">Popular Coupons</h1>
+    
+    <% if(popular.length > 0){ %>
+      <div class="row">
+        <% popular.forEach((coupon)=>{ %>
+          <% let dates = coupon.createdAt.toString().split(" "); let b= []; for(let i=1;i<4;i++){ b.push(dates[i]); } let c = b.join(" "); %>
+          <div class="col-12 col-md-3 mr-10 shadowd">
+              <div class="row">
+                  <div class="col-12">
+                      <img src="<%= coupon.imgUrl %>" class="img-1" alt="<%= coupon.title %>">
+                  </div>
+                  <div class="col-12 centered med-1">
+                      <div class="post-preview">
+                          <a href="/coupon/<%= coupon.urlTitle %>">
+                            <h1 class="post-title">
+                              <strong class="text-cstm">
+                              <%= coupon.title %>
+                              </strong>
+                            </h1>
+                            <h3 class="post-subtitle text-cstm-2">
+                              <%= coupon.description %>
+                            </h3>
+                          </a>
+                          <p class="post-meta ">Posted by
+                            <a href="#">chirag </a><%= c %></p>
+                        </div>
+                  </div>
+              </div>
+            </div>
+              <% }) %>
+              <% } else { %>
+                  <p>No Coupons Found</p>
+              <% } %>
+            </div>
   </div>
-  <div class="container c-con-1">
-    <div class="popular">
-      <h1 class="text-center">popular Coupons</h1>
-      <div class="row"></div>
-      <p class="text-center">No popular coupon found</p>
-    </div>
+  <br>
   <h1 class="text-center">Latest coupons</h1>
     <% if(coupons.length > 0){ %>
     <div class="row">
@@ -56,7 +82,7 @@
           </div>
             <% }) %>
             <% } else { %>
-                <h1>No Coupons Found</h1>
+                <p>No Coupons Found</p>
             <% } %>
           </div>
     
