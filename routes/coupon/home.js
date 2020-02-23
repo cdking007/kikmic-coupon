@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Coupon = require("../../models/coupon");
-const limit = 10;
+const limit = 16;
 const requestIp = require("request-ip");
 
 router.get("/", async (req, res) => {

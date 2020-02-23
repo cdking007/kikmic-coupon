@@ -14,43 +14,43 @@
       </div>
     </div>
   </header>
-
-  
-
 <div class="container c-con-1">
+  <h1 class="text-center">Latest coupons</h1>
     <% if(coupons.length > 0){ %>
-        <% coupons.forEach((coupon)=>{ %>
-            <% let dates = coupon.createdAt.toString().split(" "); let b= []; for(let i=1;i<4;i++){ b.push(dates[i]); } let c = b.join(" "); %>
+
     <div class="row">
-        <div class="col-12 shadowd">
+      <% coupons.forEach((coupon)=>{ %>
+        <% let dates = coupon.createdAt.toString().split(" "); let b= []; for(let i=1;i<4;i++){ b.push(dates[i]); } let c = b.join(" "); %>
+        <div class="col-12 col-md-3 mr-10 shadowd">
             <div class="row">
-                <div class="col-12 col-md-4">
+                <div class="col-12">
                     <img src="<%= coupon.imgUrl %>" class="img-1" alt="<%= coupon.title %>">
                 </div>
-                <div class="col-12 col-md-8 centered med-1">
+                <div class="col-12 centered med-1">
                     <div class="post-preview">
                         <a href="/coupon/<%= coupon.urlTitle %>">
                           <h1 class="post-title">
-                            <strong>
+                            <strong class="text-cstm">
                             <%= coupon.title %>
                             </strong>
                           </h1>
-                          <h3 class="post-subtitle">
+                          <h3 class="post-subtitle text-cstm-2">
                             <%= coupon.description %>
                           </h3>
                         </a>
-                        <p class="post-meta">Posted by
+                        <p class="post-meta ">Posted by
                           <a href="#">chirag </a><%= c %></p>
                       </div>
                 </div>
             </div>
-           
-        </div>
-    </div>
-    <% }) %>
-    <% } else { %>
-        <h1>No Coupons Found</h1>
-    <% } %>
+          </div>
+            <% }) %>
+            <% } else { %>
+                <h1>No Coupons Found</h1>
+            <% } %>
+          </div>
+    
+    
 </div>
 </body>
 <%- include('layouts/footer.ejs') %>
