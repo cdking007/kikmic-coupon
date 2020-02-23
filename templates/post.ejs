@@ -49,18 +49,50 @@
   <hr />
   <div class="container">
     <div id="disqus_thread"></div>
+    <div class="featured">
+      <h1 class="text-center">Last Added Coupons</h1>
+
+      <% if(popular.length > 0){ %>
+      <div class="row">
+        <% popular.forEach((coupon)=>{ %> <% let dates =
+        coupon.createdAt.toString().split(" "); let b= []; for(let i=1;i<4;i++){
+        b.push(dates[i]); } let c = b.join(" "); %>
+        <div class="col-12 col-md-3 mr-10 shadowd">
+          <div class="row">
+            <div class="col-12">
+              <img
+                src="<%= coupon.imgUrl %>"
+                class="img-1"
+                alt="<%= coupon.title %>"
+              />
+            </div>
+            <div class="col-12 centered med-1">
+              <div class="post-preview">
+                <a href="/coupon/<%= coupon.urlTitle %>">
+                  <h1 class="post-title">
+                    <strong class="text-cstm">
+                      <%= coupon.title %>
+                    </strong>
+                  </h1>
+                  <h3 class="post-subtitle text-cstm-2">
+                    <%= coupon.description %>
+                  </h3>
+                </a>
+                <p class="post-meta ">
+                  Posted by <a href="#">chirag </a><%= c %>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }) %> <% } else { %>
+        <p>No Coupons Found</p>
+        <% } %>
+      </div>
+    </div>
   </div>
 
   <script>
-    console.log("<%= url %>");
-    /**
-     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-    // var disqus_config = function() {
-    //   this.page.url = "<%= url %>"; // Replace PAGE_URL with your page's canonical URL variable
-    //   this.page.identifier = "<%= url %>"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    // };
-
     (function() {
       // DON'T EDIT BELOW THIS LINE
       var d = document,

@@ -136,11 +136,14 @@ router.get("/coupon/:title", async (req, res) => {
       { views: viewsInc }
     );
     await cpn.save();
+    const coupons = await Coupon.find({})
+      .sort({ createdAt: -1 })
+      .limit(4);
     res.render("post", {
       views,
       postTitle: coupon.title + " Free Coupon",
       coupon,
-      url: req.url,
+      popular: coupons,
       description: coupon.description,
       author: "chirag pipaliya",
       thumbUrl: coupon.imgUrl,
