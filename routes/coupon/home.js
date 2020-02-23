@@ -140,6 +140,7 @@ router.get("/coupon/:title", async (req, res) => {
       views,
       postTitle: coupon.title + " Free Coupon",
       coupon,
+      url: req.url,
       description: coupon.description,
       author: "chirag pipaliya",
       thumbUrl: coupon.imgUrl,
