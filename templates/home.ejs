@@ -15,9 +15,19 @@
     </div>
   </header>
 <div class="container c-con-1">
+  <div class="featured">
+    <h1 class="text-center">Featured Coupons</h1>
+    <div class="row"></div>
+    <p class="text-center">No featured coupon found</p>
+  </div>
+  <div class="container c-con-1">
+    <div class="popular">
+      <h1 class="text-center">popular Coupons</h1>
+      <div class="row"></div>
+      <p class="text-center">No popular coupon found</p>
+    </div>
   <h1 class="text-center">Latest coupons</h1>
     <% if(coupons.length > 0){ %>
-
     <div class="row">
       <% coupons.forEach((coupon)=>{ %>
         <% let dates = coupon.createdAt.toString().split(" "); let b= []; for(let i=1;i<4;i++){ b.push(dates[i]); } let c = b.join(" "); %>
@@ -51,6 +61,7 @@
           </div>
     
     
+</div>
 </div>
 </body>
 <%- include('layouts/footer.ejs') %>
