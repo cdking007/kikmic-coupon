@@ -20,11 +20,11 @@ const admin = require("./routes/admin/add-coupon");
 const login = require("./routes/admin/login");
 
 const app = express();
-app.use((req, res, next) => {
-  if (req.header("x-forwarded-proto") !== "https")
-    res.redirect(301, `https://${req.header("host")}${req.url}`);
-  else next();
-});
+// app.use((req, res, next) => {
+//   if (req.header("x-forwarded-proto") !== "https")
+//     res.redirect(301, `https://${req.header("host")}${req.url}`);
+//   else next();
+// });
 //settings for the view engine
 app.set("view engine", "ejs");
 app.set("views", templatePath);

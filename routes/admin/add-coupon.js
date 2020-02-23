@@ -34,6 +34,7 @@ router.post("/add-coupon", ensureAuthenticated, isAdmin, async (req, res) => {
   const imgUrl = req.body.imgUrl;
   const description = req.body.description;
   const body = req.body.body;
+  const keywords = req.body.keywords;
   // console.log(body);
   // console.log(req.body);
   const enrollUrl = req.body.enrollUrl;
@@ -45,6 +46,7 @@ router.post("/add-coupon", ensureAuthenticated, isAdmin, async (req, res) => {
       description,
       body,
       enrollUrl,
+      keywords,
       owner: req.user._id
     });
     await coupon.save();
@@ -90,8 +92,8 @@ router.post(
     console.log(id);
     await Admin.findByIdAndDelete(id);
 
-    res.redirect("/admin/members");
     req.flash("info", "user deleted");
+    res.redirect("/admin/members");
   }
 );
 
@@ -110,6 +112,7 @@ router.post(
         role: role.toLowerCase()
       });
       await member.save();
+      req.flash("info", "user updated");
       res.redirect("/admin/members");
     } catch (e) {
       console.log(e);
@@ -128,6 +131,7 @@ router.post(
         password
       });
       await member.save();
+      req.flash("info", "user password changed");
       res.redirect("/admin/members");
     } catch (e) {
       console.log(e);
@@ -179,6 +183,7 @@ router.post("/edit-coupon", ensureAuthenticated, isAdmin, async (req, res) => {
       { ...req.body }
     );
     await coupon.save();
+    req.flash("info", "coupon updated");
     res.redirect("/admin/coupons");
   } catch (error) {
     console.log("error");
@@ -192,6 +197,7 @@ router.post(
   async (req, res) => {
     try {
       await Coupon.findByIdAndRemove(new mongoose.Types.ObjectId(req.body._id));
+      req.flash("info", "coupon deleted");
       res.redirect("/admin/coupons");
     } catch (error) {
       console.log(error);

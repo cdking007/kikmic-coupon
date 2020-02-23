@@ -6,6 +6,14 @@
 </style>
 <hr />
 <div class="content">
+  <% if(messages.info){ %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>info! </strong><%= messages.info %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <% } %>
   <a class="btn btn-success" href="/admin/add-coupon">Add Coupon</a>
   <table class="table">
     <thead>

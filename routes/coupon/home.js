@@ -16,6 +16,8 @@ router.get("/", async (req, res) => {
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: req.user ? true : false,
+    keywords:
+      "couponshub,kikmic,free coupons,free udemy courses,free offer,coupons adda,free offers,free courses",
     isAdmin2: (function() {
       if (req.user) {
         if (req.user.role === "admin") {
@@ -33,6 +35,7 @@ router.get("/privacy", (req, res) => {
     author: "chirag pipaliya",
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+    keywords: "privacy policy of kikmic",
     isLogin: req.user ? true : false,
     isAdmin2: (function() {
       if (req.user) {
@@ -52,6 +55,7 @@ router.get("/terms", (req, res) => {
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: req.user ? true : false,
+    keywords: "terms and conditions of kikmic",
     isAdmin2: (function() {
       if (req.user) {
         if (req.user.role === "admin") {
@@ -70,6 +74,7 @@ router.get("/contact", (req, res) => {
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: req.user ? true : false,
+    keywords: "contact us",
     isAdmin2: (function() {
       if (req.user) {
         if (req.user.role === "admin") {
@@ -99,6 +104,7 @@ router.get("/page/:page", async (req, res, next) => {
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: req.user ? true : false,
+    keywords: skipVal + " page",
     isAdmin2: (function() {
       if (req.user) {
         if (req.user.role === "admin") {
@@ -134,6 +140,7 @@ router.get("/coupon/:title", async (req, res) => {
       author: "chirag pipaliya",
       thumbUrl: coupon.imgUrl,
       isLogin: req.user ? true : false,
+      keywords: coupon.keywords,
       isAdmin2: (function() {
         if (req.user) {
           if (req.user.role === "admin") {

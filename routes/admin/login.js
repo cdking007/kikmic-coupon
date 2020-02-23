@@ -17,7 +17,8 @@ router.get("/login", ensureNotAuthenticated, (req, res, next) => {
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: false,
-    isAdmin2: false
+    isAdmin2: false,
+    keywords: "login"
   });
 });
 router.post("/login", ensureNotAuthenticated, (req, res, next) => {
@@ -36,7 +37,8 @@ router.get("/signup", ensureNotAuthenticated, async (req, res) => {
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: false,
-    isAdmin2: false
+    isAdmin2: false,
+    keywords: "signup"
   });
 });
 
@@ -85,6 +87,7 @@ router.post("/signup", ensureNotAuthenticated, async (req, res) => {
   await admin
     .save()
     .then(() => {
+      req.flash("info", "sign up successfully");
       res.redirect("/login");
     })
     .catch(e => console.log(e));
