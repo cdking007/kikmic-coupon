@@ -99,7 +99,7 @@ router.get("/logout", ensureAuthenticated, (req, res) => {
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: true,
-    keyword: "logout",
+    keywords: "logout",
     isAdmin2: (function() {
       if (req.user) {
         if (req.user.role === "admin") {
