@@ -55,7 +55,9 @@ router.post("/sec/api/whatsapp/sms", async (req, res) => {
   let rs1 = msg.startsWith("#request");
   if (rs1) {
     msg = msg.replace("#request ", "");
-    const rs2 = msg.startsWith("https://udemy.com/");
+    const rs2 =
+      msg.startsWith("https://udemy.com/") ||
+      msg.startsWith("https://www.udemy.com/");
 
     if (rs2) {
       await request.post(
