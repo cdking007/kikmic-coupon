@@ -36,7 +36,6 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/api/reqcoupon", async (req, res) => {
-  console.log(req.body);
   const reqcp = new reqCoupon({ ...req.body });
   try {
     await reqcp.save();
@@ -44,6 +43,11 @@ router.post("/api/reqcoupon", async (req, res) => {
   } catch (e) {
     res.status(500).send(e);
   }
+});
+
+router.get("/api/reqcoupon", async (req, res) => {
+  const coupons = await reqCoupon.find({});
+  res.send(coupons);
 });
 
 router.get("/privacy", (req, res) => {
