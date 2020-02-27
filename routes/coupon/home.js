@@ -4,6 +4,7 @@ const Coupon = require("../../models/coupon");
 const limit = 16;
 const requestIp = require("request-ip");
 const reqCoupon = require("../../models/req-coupon");
+const MessagingResponse = require("twilio").twiml.MessagingResponse;
 
 router.get("/", async (req, res) => {
   const coupons = await Coupon.find({})
@@ -43,6 +44,57 @@ router.post("/api/reqcoupon", async (req, res) => {
   } catch (e) {
     res.status(500).send(e);
   }
+});
+
+router.post("sec/api/whatsapp/sms", async (req, res) => {
+  const twiml = new MessagingResponse();
+
+  let msg = req.body.Body;
+  let number = req.body.From;
+  let rs1 = msg.startsWith("#request");
+  if (rs1) {
+    msg = msg.replace("#request ", "");
+    const rs2 = msg.startsWith("https://udemy.com/");
+
+    if (rs2) {
+      await request.post(
+        "http://couponshub.website/api/reqcoupon",
+        { json: { url: rs2, number: number } },
+        function(error, response, body) {
+          if (!error && response.statusCode == 200) {
+            twiml.message(
+              "Hello! \n " +
+                number +
+                "\n Your request to url: " +
+                rs2 +
+                "Is in progress!\n you will get notified when its found in our db its take few time!"
+            );
+          }
+        }
+      );
+
+      twiml.message(
+        "Hello! \n " +
+          number +
+          "\n Your request to url: " +
+          msg +
+          "Is Submitted please check groups!"
+      );
+    } else {
+      twiml.message(
+        "Hello! \n " +
+          number +
+          "\n Your requested must  be from https://udemy.com"
+      );
+    }
+  } else {
+    twiml.message(
+      "Hello! \n " + number + "\n Your request must start with #request prefix"
+    );
+  }
+
+  res.writeHead(200, { "Content-Type": "text/xml" });
+  res.end(twiml.toString());
 });
 
 router.get("/api/reqcoupon", async (req, res) => {
