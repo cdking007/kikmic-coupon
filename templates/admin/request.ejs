@@ -43,6 +43,13 @@
             <form action="/admin/request/delete" method="POST">
               <input type="hidden" name="id" value="<%= request._id %>" />
               <input type="submit" value="delete" class="btn btn-danger" />
+              <% let c1 = request.number; let c2=c1.replace("whatsapp:+",""); %>
+              <a
+                href="https://wa.me/<%= c2 %>?text=hello your request url: <%= request.url %> found! download link: whatsapp bot by kikmic developers"
+                class="btn btn-success"
+                target="_BLANK"
+                >send url</a
+              >
             </form>
           </td>
         </tr>
