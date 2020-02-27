@@ -5,6 +5,7 @@ const limit = 16;
 const requestIp = require("request-ip");
 const reqCoupon = require("../../models/req-coupon");
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
+const request = require("request");
 
 router.get("/", async (req, res) => {
   const coupons = await Coupon.find({})
@@ -46,7 +47,7 @@ router.post("/api/reqcoupon", async (req, res) => {
   }
 });
 
-router.post("sec/api/whatsapp/sms", async (req, res) => {
+router.post("/sec/api/whatsapp/sms", async (req, res) => {
   const twiml = new MessagingResponse();
 
   let msg = req.body.Body;
