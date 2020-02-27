@@ -79,18 +79,20 @@ router.post("/sec/api/whatsapp/sms", async (req, res) => {
           number +
           "\n Your request to url: " +
           msg +
-          "Is Submitted!"
+          "Is Submitted! \n whatsapp bot by KikMic Developers"
       );
     } else {
       twiml.message(
         "Hello! \n " +
           number +
-          "\n Your requested must  be from https://udemy.com"
+          "\n Your requested must  be from https://udemy.com \n whatsapp bot by KikMic Developers"
       );
     }
   } else {
     twiml.message(
-      "Hello! \n " + number + "\n Your request must start with #request prefix"
+      "Hello! \n " +
+        number +
+        "\n Your request must start with #request prefix \n whatsapp bot by KikMic Developers"
     );
   }
 
