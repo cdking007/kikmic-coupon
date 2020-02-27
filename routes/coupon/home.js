@@ -3,6 +3,7 @@ const router = express.Router();
 const Coupon = require("../../models/coupon");
 const limit = 16;
 const requestIp = require("request-ip");
+const reqCoupon = require("../../models/req-coupon");
 
 router.get("/", async (req, res) => {
   const coupons = await Coupon.find({})
@@ -33,6 +34,18 @@ router.get("/", async (req, res) => {
     })()
   });
 });
+
+router.post("/api/reqcoupon", async (req, res) => {
+  console.log(req.body);
+  const reqcp = new reqCoupon({ ...req.body });
+  try {
+    await reqcp.save();
+    res.status(200).send(reqcp);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
 router.get("/privacy", (req, res) => {
   res.render("privacy", {
     postTitle: "Privacy policy",

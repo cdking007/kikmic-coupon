@@ -30,6 +30,7 @@ app.set("view engine", "ejs");
 app.set("views", templatePath);
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
 //security and session related settings
 app.use(flash());
 app.use(
