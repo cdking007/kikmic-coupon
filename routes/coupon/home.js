@@ -60,7 +60,7 @@ router.post("/sec/api/whatsapp/sms", async (req, res) => {
     if (rs2) {
       await request.post(
         "http://couponshub.website/api/reqcoupon",
-        { json: { url: rs2, number: number } },
+        { json: { url: msg, number: number } },
         function(error, response, body) {
           if (!error && response.statusCode == 200) {
             twiml.message(

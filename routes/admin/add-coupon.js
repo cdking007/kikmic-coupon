@@ -4,6 +4,7 @@ const Coupon = require("../../models/coupon");
 const mongoose = require("mongoose");
 const router = express.Router();
 const bcryptjs = require("bcryptjs");
+const reqCoupon = require("../../models/req-coupon");
 const { ensureAuthenticated, isAdmin } = require("../../security/auth");
 
 router.get("/", ensureAuthenticated, isAdmin, async (req, res) => {
@@ -68,6 +69,32 @@ router.get("/coupons", ensureAuthenticated, isAdmin, async (req, res) => {
     path: "/coupons"
   });
 });
+
+router.get("/request", ensureAuthenticated, isAdmin, async (req, res) => {
+  const cpRequest = await reqCoupon.find({});
+  res.render("admin/request", {
+    postTitle: "coupons request",
+    cpRequest,
+    author: "chirag pipaliya",
+    description: "Site Members",
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+    isLogin: true,
+    path: "/request",
+    id: req.user._id
+  });
+});
+
+router.post(
+  "/request/delete",
+  ensureAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    const id = req.body.id;
+    await reqCoupon.findByIdAndRemove(id);
+
+    res.redirect("/admin/request");
+  }
+);
 
 router.get("/members", ensureAuthenticated, isAdmin, async (req, res) => {
   const members = await Admin.find({});

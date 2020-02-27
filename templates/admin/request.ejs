@@ -1,0 +1,61 @@
+<%- include('admin-header.ejs') %>
+<style>
+  .img-1 {
+    height: 30%;
+  }
+  .container {
+    margin: 20px;
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.322);
+    width: 60vw;
+  }
+</style>
+<div class="content">
+  <div class="container">
+    <% if(messages.info){ %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>info! </strong><%= messages.info %>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <% } %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>number</th>
+          <th>request url</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(cpRequest.length > 0){ %> <% cpRequest.forEach((request)=>{ %>
+        <tr>
+          <td><%= request.number %></td>
+          <td>
+            <p><%= request.url %></p>
+          </td>
+          <td>
+            <form action="/admin/request/delete" method="POST">
+              <input type="hidden" name="id" value="<%= request._id %>" />
+              <input type="submit" value="delete" class="btn btn-danger" />
+            </form>
+          </td>
+        </tr>
+
+        <% }) %> <% } else { %>
+        <tr>
+          <td>No request found</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Page Header -->
+
+<%- include("admin-footer.ejs") %>

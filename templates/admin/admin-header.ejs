@@ -72,6 +72,7 @@
                 <p>Members</p>
               </a>
             </li>
+
             <li
               class="nav-item <% if(path=='/coupons'){ %>
               active
@@ -80,6 +81,16 @@
               <a class="nav-link" href="/admin/coupons">
                 <i class="material-icons">content_paste</i>
                 <p>Coupons</p>
+              </a>
+            </li>
+            <li
+              class="nav-item <% if(path=='/request'){ %>
+            active
+          <% } %> "
+            >
+              <a class="nav-link" href="/admin/request">
+                <i class="material-icons">person</i>
+                <p>coupons request</p>
               </a>
             </li>
           </ul>
@@ -138,7 +149,6 @@
                     class="dropdown-menu dropdown-menu-right"
                     aria-labelledby="navbarDropdownProfile"
                   >
-                   
                     <a class="dropdown-item" href="/logout">Log out</a>
                   </div>
                 </li>
