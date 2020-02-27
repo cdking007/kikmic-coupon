@@ -79,7 +79,7 @@ router.post("/sec/api/whatsapp/sms", async (req, res) => {
           number +
           "\n Your request to url: " +
           msg +
-          "Is Submitted please check groups!"
+          "Is Submitted!"
       );
     } else {
       twiml.message(
