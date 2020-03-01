@@ -6,6 +6,7 @@ const router = express.Router();
 const bcryptjs = require("bcryptjs");
 const reqCoupon = require("../../models/req-coupon");
 const { ensureAuthenticated, isAdmin } = require("../../security/auth");
+const SitemapGenerator = require("sitemap-generator");
 
 router.get("/", ensureAuthenticated, isAdmin, async (req, res) => {
   const totMember = await Admin.find({}).count();
@@ -55,6 +56,30 @@ router.post("/add-coupon", ensureAuthenticated, isAdmin, async (req, res) => {
   } catch (e) {
     console.log(e);
   }
+});
+router.get("/sitemap", ensureAuthenticated, isAdmin, (req, res) => {
+  res.render("admin/sitemap", {
+    postTitle: "Free Coupon codes",
+    author: "chirag pipaliya",
+    description: "One stop for all Free coupon course",
+    thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
+    isLogin: true,
+    path: "/sitemap"
+  });
+});
+router.post("/sitemap", ensureAuthenticated, isAdmin, (req, res) => {
+  var generator = SitemapGenerator(req.protocol + "://" + req.get("host"), {
+    maxDepth: 0,
+    filepath: "/public/sitemap2.xml",
+    maxEntriesPerFile: 50000,
+    stripQuerystring: true
+  });
+
+  generator.start();
+  generator.on("done", () => {
+    // sitemaps created
+    res.redirect("/admin");
+  });
 });
 
 router.get("/coupons", ensureAuthenticated, isAdmin, async (req, res) => {

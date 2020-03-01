@@ -23,6 +23,7 @@ router.get("/", async (req, res) => {
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: req.user ? true : false,
     popular: popular,
+    url: req.protocol + "://" + req.get("host") + req.originalUrl,
     keywords:
       "couponshub,kikmic,free coupons,free udemy courses,free offer,coupons adda,free offers,free courses",
     isAdmin2: (function() {
@@ -115,6 +116,8 @@ router.get("/privacy", (req, res) => {
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     keywords: "privacy policy of kikmic",
     isLogin: req.user ? true : false,
+    url: req.protocol + "://" + req.get("host") + req.originalUrl,
+
     isAdmin2: (function() {
       if (req.user) {
         if (req.user.role === "admin") {
@@ -133,6 +136,8 @@ router.get("/terms", (req, res) => {
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: req.user ? true : false,
+    url: req.protocol + "://" + req.get("host") + req.originalUrl,
+
     keywords: "terms and conditions of kikmic",
     isAdmin2: (function() {
       if (req.user) {
@@ -149,6 +154,8 @@ router.get("/contact", (req, res) => {
   res.render("contact", {
     postTitle: "Contact us",
     author: "chirag pipaliya",
+    url: req.protocol + "://" + req.get("host") + req.originalUrl,
+
     description: "One stop for all Free coupon course",
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: req.user ? true : false,
@@ -183,6 +190,8 @@ router.get("/page/:page", async (req, res, next) => {
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: req.user ? true : false,
     keywords: skipVal + " page",
+    url: req.protocol + "://" + req.get("host") + req.originalUrl,
+
     isAdmin2: (function() {
       if (req.user) {
         if (req.user.role === "admin") {
@@ -223,6 +232,8 @@ router.get("/coupon/:title", async (req, res) => {
       thumbUrl: coupon.imgUrl,
       isLogin: req.user ? true : false,
       keywords: coupon.keywords,
+      url: req.protocol + "://" + req.get("host") + req.originalUrl,
+
       isAdmin2: (function() {
         if (req.user) {
           if (req.user.role === "admin") {

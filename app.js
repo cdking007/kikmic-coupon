@@ -6,7 +6,6 @@ const flash = require("express-flash");
 const session = require("express-session");
 const templatePath = path.join(__dirname, "templates");
 const passport = require("passport");
-const SitemapGenerator = require("sitemap-generator");
 
 // db connection
 
@@ -20,6 +19,7 @@ const admin = require("./routes/admin/add-coupon");
 const login = require("./routes/admin/login");
 
 const app = express();
+////Settings for the https uncomment it when only its in production
 // app.use((req, res, next) => {
 //   if (req.header("x-forwarded-proto") !== "https")
 //     res.redirect(301, `https://${req.header("host")}${req.url}`);
@@ -53,17 +53,6 @@ app.use(login);
 // loading static files
 
 app.use(express.static(path.join(__dirname, "public")));
-
-// var generator = SitemapGenerator("https://localhost:3000", {
-//   maxDepth: 0,
-//   filepath: "./public/sitemap.xml",
-//   maxEntriesPerFile: 50000,
-//   stripQuerystring: true
-// });
-// generator.on("done", () => {
-//   // sitemaps created
-// });
-// generator.start();
 
 //404 page
 app.use("/", (req, res) => {

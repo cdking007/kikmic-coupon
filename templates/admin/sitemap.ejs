@@ -1,0 +1,13 @@
+<%- include('admin-header.ejs') %>
+<br />
+<br />
+<div class="content">
+  <div class="container">
+    <h1>Sitemap Generator</h1>
+    <form action="/admin/sitemap" method="POST">
+      <input type="submit" value="generate sitemap" class="btn btn-success" />
+    </form>
+  </div>
+</div>
+
+<%- include("admin-footer.ejs") %>
