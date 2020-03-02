@@ -18,7 +18,8 @@ router.get("/login", ensureNotAuthenticated, (req, res, next) => {
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: false,
     isAdmin2: false,
-    keywords: "login"
+    keywords: "login",
+    url: req.protocol + "://" + req.get("host") + req.originalUrl
   });
 });
 router.post("/login", ensureNotAuthenticated, (req, res, next) => {
@@ -38,7 +39,8 @@ router.get("/signup", ensureNotAuthenticated, async (req, res) => {
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: false,
     isAdmin2: false,
-    keywords: "signup"
+    keywords: "signup",
+    url: req.protocol + "://" + req.get("host") + req.originalUrl
   });
 });
 
