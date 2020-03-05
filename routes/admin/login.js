@@ -102,6 +102,7 @@ router.get("/logout", ensureAuthenticated, (req, res) => {
     thumbUrl: "https://kikmic.ca/wp-content/uploads/2019/04/cropped-mini.png",
     isLogin: true,
     keywords: "logout",
+    url: req.protocol + "://" + req.get("host") + req.originalUrl,
     isAdmin2: (function() {
       if (req.user) {
         if (req.user.role === "admin") {
