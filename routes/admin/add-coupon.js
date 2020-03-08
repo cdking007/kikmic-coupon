@@ -68,6 +68,7 @@ router.get("/sitemap", ensureAuthenticated, isAdmin, (req, res) => {
     path: "/sitemap"
   });
 });
+
 router.post("/sitemap", ensureAuthenticated, isAdmin, (req, res) => {
   var generator = SitemapGenerator(req.protocol + "://" + req.get("host"), {
     maxDepth: 0,
