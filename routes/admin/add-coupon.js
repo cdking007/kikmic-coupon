@@ -7,6 +7,7 @@ const bcryptjs = require("bcryptjs");
 const reqCoupon = require("../../models/req-coupon");
 const { ensureAuthenticated, isAdmin } = require("../../security/auth");
 const SitemapGenerator = require("sitemap-generator");
+const path = require("path");
 
 router.get("/", ensureAuthenticated, isAdmin, async (req, res) => {
   const totMember = await Admin.find({}).count();
@@ -70,7 +71,7 @@ router.get("/sitemap", ensureAuthenticated, isAdmin, (req, res) => {
 router.post("/sitemap", ensureAuthenticated, isAdmin, (req, res) => {
   var generator = SitemapGenerator(req.protocol + "://" + req.get("host"), {
     maxDepth: 0,
-    filepath: "/public/sitemap2.xml",
+    filepath: path.join(__dirname, "..", "..", ".", "public", "sitemap.xml"),
     maxEntriesPerFile: 50000,
     stripQuerystring: true
   });
